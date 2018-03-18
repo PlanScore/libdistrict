@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='libdistrict',
@@ -8,5 +8,7 @@ setup(
     author_email='info@planscore.org',
     url='https://github.com/PlanScore/libdistrict',
     license='MIT',
-    packages=['libdistrict'],
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    test_suite='tests',
 )
