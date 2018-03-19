@@ -8,7 +8,7 @@ setup(
     author_email='info@planscore.org',
     url='https://github.com/PlanScore/libdistrict',
     license='MIT',
-    packages=find_packages('src'),
-    package_dir={'': 'src'},
+    packages=find_packages('src/libdistrict'),
+    package_dir={'': 'src/libdistrict'},
     test_suite='tests',
 )
