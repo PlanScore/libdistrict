@@ -16,8 +16,3 @@ class TestDistrict(unittest.TestCase):
     def test_no_id(self):
         district = District()
         self.assertTrue(district.id is None)
-
-    # FIXME test intentionally fails to test continuous integration system
-    def test_id_fail(self):
-        district = District()
-        self.assertTrue(district.id is not None)
