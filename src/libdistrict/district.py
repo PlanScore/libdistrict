@@ -2,7 +2,6 @@
 """
 TODO update class with the feedback from Azavea
 This class may change significantly or be removed altogether
-Need to consider how to expand to include 3rd parties and communities of interest
 """
 
 
@@ -13,7 +12,7 @@ class District:
         :param id: the unique identifier for this district
         :param population: population of this district
         :param votes: all votes in this district for the election
-        :param party_votes: dictionary of whose keys are string party and values votes
+        :param party_votes: dictionary whose keys are strings (party) and values (votes)
         :param geometry: spatial geometry of this district
         """
         self.id = id
