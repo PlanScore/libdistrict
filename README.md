@@ -7,7 +7,7 @@ libdistrict is a free open source metrics library created to help developers, re
 ### Install
  * [Python3](https://www.python.org/downloads/)
  * [GDAL](https://pypi.python.org/pypi/GDAL)
- * [setuptools](hhttps://packaging.python.org/guides/installing-using-linux-tools/)
+ * [setuptools](https://packaging.python.org/guides/installing-using-linux-tools/)
 
 ### To build library and run tests
  * Locally: `python3 setup.py test`
