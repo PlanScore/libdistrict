@@ -2,6 +2,17 @@
 
 libdistrict is a free open source metrics library created to help developers, researchers, and policy-makers evaluate district plans. This library is developed with input from [PlanScore](https://www.planscore.org) and [Azavea](https://www.azavea.com).
 
+## Build and Run
+
+### Install
+ * [Python3](https://www.python.org/downloads/)
+ * [GDAL](https://pypi.python.org/pypi/GDAL)
+ * [SetUpTools](https://packaging.python.org/tutorials/installing-packages/)
+
+### To build library and run tests
+ * Locally: `python3 setup.py test`
+
+
 ## Contributing
 
 ### Setup
