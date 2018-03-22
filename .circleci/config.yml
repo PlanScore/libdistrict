@@ -7,4 +7,11 @@ jobs:
       - checkout
       - run:
           command: |
-            python3 setup.py test
+            sudo apt-get install libgdal-dev libgdal1h
+            sudo apt-get install python3-gdal
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --global-option=build_ext --global-option="-I/usr/include/gdal" "GDAL <= `gdal-config --version`"
+            python setup.py test
