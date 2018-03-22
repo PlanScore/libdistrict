@@ -16,8 +16,8 @@ projection = osr.CoordinateTransformation(EPSG4326, EPSG3857)
 
 def polsby_popper(district):
 
-    check_if_district(district)
-    check_if_has_geometry(district)
+    is_district(district)
+    has_geometry(district)
 
     geometry = district.geometry
 
@@ -45,11 +45,11 @@ def polsby_popper(district):
 """
 Helper Methods for Compactness Functions
 """
-def check_if_district(district):
+def is_district(district):
     if not isinstance(district, District):
         raise TypeError
 
-def check_if_has_geometry(district):
+def has_geometry(district):
     geometry = district.geometry
 
     if geometry is None:

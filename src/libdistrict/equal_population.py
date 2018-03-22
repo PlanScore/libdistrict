@@ -33,22 +33,21 @@ def districts_in_percent_deviation(district_plan, percent_deviation):
     """
     num_districts_in_percent_deviation = 0
     num_districts = 0
-    population = 0
+    total_pop = 0
 
     for district in district_plan:
         if isinstance(district, District) and district is not None:
             num_districts += 1
-            pop = district.population
-            if isinstance(pop, int):
-                population += district.population
+            if isinstance(district.population, int):
+                total_pop += district.population
         else:
             raise TypeError
 
-    ideal = population / num_districts
-    max_dev = percent_deviation / 100 * ideal
+    average_pop = total_pop / num_districts
+    max_dev = percent_deviation / 100 * average_pop
 
     for district in district_plan:
-        if (ideal - max_dev) <= district.population <= (ideal + max_dev):
+        if (average_pop - max_dev) <= district.population <= (average_pop + max_dev):
             num_districts_in_percent_deviation += 1
     
     return num_districts_in_percent_deviation
