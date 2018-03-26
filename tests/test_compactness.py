@@ -33,9 +33,19 @@ class TestPolsbyPopper(unittest.TestCase):
     def test_polsby_popper_square(self):
 
         # A square around Lake Merritt: From PlanScore
-        geom1 = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.7987797], [-122.2631266, 37.8103489], [-122.2484841, 37.8103489], [-122.2484841, 37.7987797], [-122.2631266, 37.7987797]]]}')
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.7987797], [-122.2631266, 37.8103489], [-122.2484841, 37.8103489], [-122.2484841, 37.7987797], [-122.2631266, 37.7987797]]]}')
 
-        district = District(geometry=geom1)
+        district = District(geometry=geom)
 
-        self.assertAlmostEqual(math.pi/4, polsby_popper(district), places =5)
+        self.assertAlmostEqual(math.pi/4, polsby_popper(district), places=5)
+
+
+    def test_polsby_popper_line(self):
+
+        # A thin line through Lake Merritt: From PlanScore
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.804111], [-122.2631266, 37.804112], [-122.2484841, 37.804112], [-122.2484841, 37.804111], [-122.2631266, 37.804111]]]}')
+
+        district = District(geometry = geom)
+
+        self.assertAlmostEqual(0., polsby_popper(district), places=3)
 
