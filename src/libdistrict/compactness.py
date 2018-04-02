@@ -42,9 +42,39 @@ def polsby_popper(district):
     return 4 * math.pi * (geom_area / (length ** 2))
 
 
-"""
-Helper Methods for Compactness Functions
-"""
+def schwartzberg(district):
+
+    is_district(district)
+    has_geometry(district)
+
+    geometry = district.geometry
+
+
+    """
+    From PlanScore Compactness/__init__.py
+    """
+    projected = geometry.Clone()
+    projected.Transform(projection)
+    boundary = projected.GetBoundary()
+    area = projected.GetArea()
+
+    if boundary.GetGeometryType() in (ogr.wkbMultiLineString, ogr.wkbMultiLineString25D):
+        geoms = [boundary.GetGeometryRef(i) for i in range(boundary.GetGeometryCount())]
+        perimeter = sum([geom.Length() for geom in geoms])
+    else:
+        perimeter = boundary.Length()
+
+    """
+    """
+
+    radius = math.sqrt(area/math.pi)
+    circumference = 2*math.pi*radius
+    schwartzberg_score = 1/(perimeter/circumference)
+
+    return schwartzberg_score
+
+
+#Helper Methods for Compactness Functions
 def is_district(district):
     if not isinstance(district, District):
         raise TypeError
