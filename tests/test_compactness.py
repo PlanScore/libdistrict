@@ -69,3 +69,4 @@ class TestPolsbyPopper(unittest.TestCase):
         triangle_score = (4.0*math.pi) * ((math.sqrt(3.0)/4.0)/9.0)
 
         self.assertAlmostEqual(triangle_score, polsby_popper(district), places=5)
+        
