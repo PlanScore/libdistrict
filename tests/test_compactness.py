@@ -2,7 +2,33 @@ import unittest
 import math
 from osgeo import ogr
 from district import District
-from compactness import polsby_popper, schwartzberg
+from compactness import polsby_popper, schwartzberg, is_district, has_geometry
+
+class TestHelperMethods(unittest.TestCase):
+
+    def test_not_district(self):
+
+        district = None
+
+        with self.assertRaises(TypeError):
+            is_district(district)
+
+    def test_no_geometry(self):
+
+        district = District()
+
+        with self.assertRaises(TypeError):
+            has_geometry(district)
+
+    def test_not_geometry(self):
+
+        not_geometry = "Not a geometry"
+
+        district = District(id=id, geometry=not_geometry)
+
+        with self.assertRaises(AttributeError):
+            has_geometry(district)
+
 
 class TestPolsbyPopper(unittest.TestCase):
 
