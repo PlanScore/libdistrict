@@ -30,12 +30,43 @@ class TestPolsbyPopper(unittest.TestCase):
             polsby_popper(district)
 
 
-    def test_polsby_popper_square(self):
+    def test_polsby_popper_square_4326(self):
 
         # A square around Lake Merritt: From PlanScore
-        geom1 = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.7987797], [-122.2631266, 37.8103489], [-122.2484841, 37.8103489], [-122.2484841, 37.7987797], [-122.2631266, 37.7987797]]]}')
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.7987797], [-122.2631266, 37.8103489], [-122.2484841, 37.8103489], [-122.2484841, 37.7987797], [-122.2631266, 37.7987797]]]}')
 
-        district = District(geometry=geom1)
+        district = District(geometry=geom)
 
-        self.assertAlmostEqual(math.pi/4, polsby_popper(district), places =5)
+        self.assertAlmostEqual(math.pi/4, polsby_popper(district), places=5)
 
+
+    def test_polsby_popper_line_4326(self):
+
+        # A thin line through Lake Merritt: From PlanScore
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.804111], [-122.2631266, 37.804112], [-122.2484841, 37.804112], [-122.2484841, 37.804111], [-122.2631266, 37.804111]]]}')
+
+        district = District(geometry = geom)
+
+        self.assertAlmostEqual(0., polsby_popper(district), places=3)
+
+
+    def test_polsby_popper_square_3857(self):
+
+        # A square around Lake Winnebago
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-9839815.088179024,5505529.83629639],[-9881396.831566159,5468840.062719505],[-9844707.057989275,5427258.31933237],[-9803125.31460214,5463948.092909254],[-9839815.088179024,5505529.83629639]]]}')
+
+        district = District(geometry=geom)
+
+        self.assertAlmostEqual(math.pi/4, polsby_popper(district), places=5)
+
+
+    def test_polsby_popper_triangle_3857(self):
+
+        # An equilateral triangle around Lake Mendota
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-9942183.378309947,5335705.868703798],[-9966678.038775941,5335248.39511508],[-9954034.524793552,5314264.133688814],[-9942183.378309947,5335705.868703798]]]}')
+
+        district = District(geometry=geom)
+        triangle_score = (4.0*math.pi) * ((math.sqrt(3.0)/4.0)/9.0)
+
+        self.assertAlmostEqual(triangle_score, polsby_popper(district), places=5)
+        
