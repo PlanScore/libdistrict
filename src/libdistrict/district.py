@@ -1,9 +1,9 @@
+"""@package docstring
+District class contains district information.
 
+This class is a parameter to all the metric fucntions, 
+either individually or a part of the district plans. 
 """
-TODO update class with the feedback from Azavea
-This class may change significantly or be removed altogether
-"""
-
 
 class District:
 
