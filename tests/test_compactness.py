@@ -26,7 +26,7 @@ class TestHelperMethods(unittest.TestCase):
 
         district = District(id=id, geometry=not_geometry)
 
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(TypeError):
             has_geometry(district)
 
 
