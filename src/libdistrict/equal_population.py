@@ -1,5 +1,10 @@
 from district import District
+"""@package docstring
+This module has two functions: districts_in_range 
+and districts_in_percent_deviation. 
 
+Determines number of districts in a plan that fall within a target range of population.
+"""
 
 def districts_in_range(district_plan, min_target, max_target):
     """
