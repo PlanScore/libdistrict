@@ -20,15 +20,6 @@ class TestHelperMethods(unittest.TestCase):
         with self.assertRaises(TypeError):
             has_geometry(district)
 
-    def test_not_geometry(self):
-
-        not_geometry = "Not a geometry"
-
-        district = District(id=id, geometry=not_geometry)
-
-        with self.assertRaises(TypeError):
-            has_geometry(district)
-
 
 class TestPolsbyPopper(unittest.TestCase):
 
