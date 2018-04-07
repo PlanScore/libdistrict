@@ -74,6 +74,22 @@ def schwartzberg(district):
     return schwartzberg_score
 
 
+def convex_hull_ratio(district):
+
+    is_district(district)
+    has_geometry(district)
+
+    geometry = district.geometry
+
+    projected = geometry.Clone()
+    projected.Transform(projection)
+    area = projected.GetArea()
+
+    convex_hull = projected.ConvexHull().GetArea()
+
+    return area / convex_hull
+
+
 #Helper Methods for Compactness Functions
 def is_district(district):
     if not isinstance(district, District):

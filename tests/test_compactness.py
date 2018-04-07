@@ -2,7 +2,7 @@ import unittest
 import math
 from osgeo import ogr
 from district import District
-from compactness import polsby_popper, schwartzberg, is_district, has_geometry
+from compactness import polsby_popper, schwartzberg, convex_hull_ratio, is_district, has_geometry
 
 class TestHelperMethods(unittest.TestCase):
 
@@ -105,6 +105,7 @@ class TestSchwartzberg(unittest.TestCase):
 
         self.assertAlmostEqual(schwartzberg_score, schwartzberg(district), places=5)
 
+
     def test_schwartzberg_square_3857(self):
 
         # A square around Lake Winnebago
@@ -136,4 +137,59 @@ class TestSchwartzberg(unittest.TestCase):
         schwartzberg_score = 1/(3/circumference)
         
         self.assertAlmostEqual(schwartzberg_score, schwartzberg(district), places=5)
- 
+
+
+class TestConvexHullRatio(unittest.TestCase):
+
+    # The ratio of the area of the district to the area of the minimum
+    # convex polygon that can enclose the ditrict's geometry
+
+    # Area / (Area of minimum convex polygon)
+
+    def test_convex_hull_square_4326(self):
+
+        # A square around Lake Merritt: From PlanScore
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.7987797], [-122.2631266, 37.8103489], [-122.2484841, 37.8103489], [-122.2484841, 37.7987797], [-122.2631266, 37.7987797]]]}')
+
+        district = District(geometry=geom)
+
+        self.assertAlmostEqual(1.0, convex_hull_ratio(district), places=5)
+
+    def test_convex_hull_line_4326(self):
+
+        # A thin line through Lake Merritt: From PlanScore
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-122.2631266, 37.804111], [-122.2631266, 37.804112], [-122.2484841, 37.804112], [-122.2484841, 37.804111], [-122.2631266, 37.804111]]]}')
+
+        district = District(geometry = geom)
+
+        self.assertAlmostEqual(1.0, convex_hull_ratio(district), places=3)
+
+    def test_convex_hull_square_3857(self):
+
+        # A square around Lake Winnebago
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-9839815.088179024,5505529.83629639],[-9881396.831566159,5468840.062719505],[-9844707.057989275,5427258.31933237],[-9803125.31460214,5463948.092909254],[-9839815.088179024,5505529.83629639]]]}')
+
+        district = District(geometry=geom)
+
+        self.assertAlmostEqual(1.0, convex_hull_ratio(district), places=5)
+
+    def test_convex_hull_triangle_3857(self):
+        # An equilateral triangle around Lake Mendota
+        geom = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-9942183.378309947,5335705.868703798],[-9966678.038775941,5335248.39511508],[-9954034.524793552,5314264.133688814],[-9942183.378309947,5335705.868703798]]]}')
+
+        district = District(geometry=geom)
+
+        self.assertAlmostEqual(1.0, convex_hull_ratio(district), places=5)
+
+    def test_convex_hull_star_3857(self):
+        # A star in the continental 48
+
+        star = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-12146761.038853927,5875255.742111786],[-11809365.518752303,5017520.836898427],[-12525054.307214756,4436715.824286485],[-11613536.329536539,4300041.463210875],[-11468388.828200482,3389834.284892711],[-10894266.370623887,4110894.8290304607],[-10033430.080825375,3781492.6633242397],[-10370825.600927,4639227.568537598],[-9655136.812464546,5220032.581149541],[-10566654.790142763,5356706.942225151],[-10711802.291478822,6266914.120543315],[-11285924.749055414,5545853.576405566],[-12146761.038853927,5875255.742111786]]]}')
+        area = star.GetArea()
+
+        hexagon = ogr.CreateGeometryFromJson('{"type": "Polygon", "coordinates": [[[-12146761.038853927,5875255.742111786],[-12525054.307214756,4436715.824286485],[-11468388.828200482,3389834.284892711],[-10033430.080825375,3781492.6633242397],[-9655136.812464546,5220032.581149541],[-10711802.291478822,6266914.120543315],[-12146761.038853927,5875255.742111786]]]}')
+        convex_hull = hexagon.GetArea()
+
+        district = District(geometry=star)
+
+        self.assertAlmostEqual((area/convex_hull), convex_hull_ratio(district), places=5)
