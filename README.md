@@ -15,16 +15,16 @@ libdistrict is a free open source metrics library created to help developers, re
 ### Build Wheel
  * Locally: `python3 setup.py bdist_wheel`
 
-### Use Wheel
+### Install libdistrict
  * Add .whl file to directory where you would like to use libdistrict
  * Activate virtual environment
- * Install wheel in virtual environment: `pip install <wheel_name>`
+ * Install libdistrict in virtual environment: `pip install <wheel_name>.whl`
 
-### Remove Wheel
+### Uninstall libdistrict before installing new version of libdistrict
  * Activate virtual environment
- * Remove wheel from virtual environment: `pip uninstall libdistrict`
+ * Uninstall libdistrict from virtual environment: `pip uninstall libdistrict`
 
-### Virtual environment
+### Virtual environment setup, activation, and deactivation
  * Setup: `virutal env -p /usr/bin/python3 env`
  * Activate: `. env/bin/activate`
  * Deactivate: `deactivate`
