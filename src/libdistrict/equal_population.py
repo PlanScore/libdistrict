@@ -1,4 +1,4 @@
-from district import District
+from libdistrict.district import District
 """@package docstring
 This module has two functions: districts_in_range 
 and districts_in_percent_deviation. 
