@@ -9,8 +9,25 @@ libdistrict is a free open source metrics library created to help developers, re
  * [GDAL](https://pypi.python.org/pypi/GDAL)
  * [setuptools](https://packaging.python.org/guides/installing-using-linux-tools/)
 
-### To build library and run tests
+### Run tests
  * Locally: `python3 setup.py test`
+
+### Build Wheel
+ * Locally: `python3 setup.py bdist_wheel`
+
+### Install libdistrict
+ * Add .whl file to directory where you would like to use libdistrict
+ * Activate virtual environment
+ * Install libdistrict in virtual environment: `pip install <wheel_name>.whl`
+
+### Uninstall libdistrict before installing new version of libdistrict
+ * Activate virtual environment
+ * Uninstall libdistrict from virtual environment: `pip uninstall libdistrict`
+
+### Virtual environment setup, activation, and deactivation
+ * Setup: `virutal env -p /usr/bin/python3 env`
+ * Activate: `. env/bin/activate`
+ * Deactivate: `deactivate`
 
 
 ## Contributing

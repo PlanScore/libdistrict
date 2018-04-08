@@ -1,5 +1,5 @@
 import unittest
-from district import District
+from libdistrict.district import District
 
 
 """

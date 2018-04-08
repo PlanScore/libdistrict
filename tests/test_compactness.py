@@ -1,8 +1,8 @@
 import unittest
 import math
 from osgeo import ogr
-from district import District
-from compactness import polsby_popper, schwartzberg, convex_hull_ratio, is_district, has_geometry
+from libdistrict.district import District
+from libdistrict.compactness import polsby_popper, schwartzberg, convex_hull_ratio, is_district, has_geometry
 
 class TestHelperMethods(unittest.TestCase):
 

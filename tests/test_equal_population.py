@@ -1,6 +1,6 @@
 import unittest
-from district import District
-from equal_population import districts_in_range, districts_in_percent_deviation
+from libdistrict.district import District
+from libdistrict.equal_population import districts_in_range, districts_in_percent_deviation
 
 
 class TestEqualPopulation(unittest.TestCase):
