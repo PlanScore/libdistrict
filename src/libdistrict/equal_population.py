@@ -16,6 +16,9 @@ def districts_in_range(district_plan, min_target, max_target):
     """
     num_districts_in_range = 0
 
+    if district_plan is None:
+    	raise TypeError
+
     for district in district_plan:
         if isinstance(district, District) and district is not None:
             population = district.population
@@ -40,6 +43,9 @@ def districts_in_percent_deviation(district_plan, percent_deviation):
     num_districts = 0
     total_pop = 0
 
+    if district_plan is None:
+    	raise TypeError
+    	
     for district in district_plan:
         if isinstance(district, District) and district is not None:
             num_districts += 1
