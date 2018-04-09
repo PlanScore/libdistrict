@@ -25,7 +25,7 @@ libdistrict is a free open source metrics library created to help developers, re
  * Uninstall libdistrict from virtual environment: `pip uninstall libdistrict`
 
 ### Virtual environment setup, activation, and deactivation
- * Setup: `virutal env -p /usr/bin/python3 env`
+ * Setup: `virtualenv -p /usr/bin/python3 env`
  * Activate: `. env/bin/activate`
  * Deactivate: `deactivate`
 
