@@ -40,6 +40,6 @@ class TestEqualPopulation(unittest.TestCase):
 
         self.assertRaises(TypeError, districts_in_percent_deviation, None, 1)
 
-    def test_no_district_in_percent_dev(self):
+    def test_no_district_plan_percent_dev(self):
 
         self.assertRaises(TypeError, districts_in_range, None, 1, 1)
