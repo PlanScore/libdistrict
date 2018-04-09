@@ -1,6 +1,13 @@
 from libdistrict.district import District
 
 def efficiency_gap(district_plan, party_a, party_b):
+    """
+    :param district_plan: an iterable of Districts
+    :param party_a: key value / name of party a (Democratic by convention - positive scores denote pro-Democratic asymmetries)
+    :param party_b: key value / name of party b (Republican by convention - negative scores denote pro-Republican asymmetries)
+    :return: the efficiency gap (positive for party a, negative for party b)
+    """
+
     is_district_plan(district_plan)
 
     party_a_wasted = 0
