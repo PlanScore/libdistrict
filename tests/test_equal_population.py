@@ -26,4 +26,20 @@ class TestEqualPopulation(unittest.TestCase):
         # districts 1, 4 are in percent deviation and 2, 3, 5 are not
         self.assertEqual(2, districts_in_percent_deviation(self.district_plan, percent_deviation))
 
+    def test_no_district_in_percent_dev(self):
 
+        test = [None]
+        self.assertRaises(TypeError, districts_in_percent_deviation, test, 1)
+
+    def test_no_district_in_range(self):
+
+        test = [None]
+        self.assertRaises(TypeError, districts_in_range, test, 1, 1)
+
+    def test_no_district_plan_in_percent_dev(self):
+
+        self.assertRaises(TypeError, districts_in_percent_deviation, None, 1)
+
+    def test_no_district_in_percent_dev(self):
+
+        self.assertRaises(TypeError, districts_in_range, None, 1, 1)
