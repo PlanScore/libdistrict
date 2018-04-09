@@ -1,6 +1,8 @@
+import sys
+import os
 import unittest
 import math
-from osgeo import ogr
+from osgeo import ogr, gdal
 from libdistrict.district import District
 from libdistrict.compactness import polsby_popper, schwartzberg, convex_hull_ratio, is_district, has_geometry
 
@@ -86,7 +88,49 @@ class TestPolsbyPopper(unittest.TestCase):
         triangle_score = (4.0*math.pi) * ((math.sqrt(3.0)/4.0)/9.0)
 
         self.assertAlmostEqual(triangle_score, polsby_popper(district), places=5)
-        
+
+    def test_polsby_popper_comparison_esri_shapefile(self):
+
+        shape_file = r"tests/tl_2014_55_sldl/tl_2014_55_sldl.shp"
+
+        driver = ogr.GetDriverByName('ESRI Shapefile')
+
+        data_source = driver.Open(shape_file, 0)
+
+        if data_source is None:
+            print ("Open failed.\n")
+            sys.exit(1)
+
+        layer = data_source.GetLayer()
+        layer.ResetReading()
+
+        compact = None
+        dispersed = None
+
+        for feature in layer:
+
+            # feature field one is the district ID
+            id = feature.GetField(1)
+
+            # compact
+            if id == "027":
+                # the feature's geometry
+                geom = feature.GetGeometryRef()
+                geometry = geom.Clone()
+                compact = District(id=27, geometry=geometry)
+
+            # dispersed
+            if id == "077":
+                # the feature's geometry
+                geom = feature.GetGeometryRef()
+                geometry = geom.Clone()
+                dispersed = District(id=77, geometry=geometry)
+
+        compact_score = polsby_popper(compact)
+        dispersed_score = polsby_popper(dispersed)
+
+        self.assertTrue(compact_score > dispersed_score)
+
 
 class TestSchwartzberg(unittest.TestCase):
 
@@ -135,8 +179,51 @@ class TestSchwartzberg(unittest.TestCase):
         circumference = 2*math.pi*radius
 
         schwartzberg_score = 1/(3/circumference)
-        
+
         self.assertAlmostEqual(schwartzberg_score, schwartzberg(district), places=5)
+
+
+    def test_schwartzberg_comparison_esri_shapefile(self):
+
+        shape_file = r"tests/tl_2014_55_sldl/tl_2014_55_sldl.shp"
+
+        driver = ogr.GetDriverByName('ESRI Shapefile')
+
+        data_source = driver.Open(shape_file, 0)
+
+        if data_source is None:
+            print ("Open failed.\n")
+            sys.exit(1)
+
+        layer = data_source.GetLayer()
+        layer.ResetReading()
+
+        compact = None
+        dispersed = None
+
+        for feature in layer:
+
+            # feature field one is the district ID
+            id = feature.GetField(1)
+
+            # compact
+            if id == "027":
+                # the feature's geometry
+                geom = feature.GetGeometryRef()
+                geometry = geom.Clone()
+                compact = District(id=27, geometry=geometry)
+
+            # dispersed
+            if id == "077":
+                # the feature's geometry
+                geom = feature.GetGeometryRef()
+                geometry = geom.Clone()
+                dispersed = District(id=77, geometry=geometry)
+
+        compact_score = schwartzberg(compact)
+        dispersed_score = schwartzberg(dispersed)
+
+        self.assertTrue(compact_score > dispersed_score)
 
 
 class TestConvexHullRatio(unittest.TestCase):
@@ -193,3 +280,45 @@ class TestConvexHullRatio(unittest.TestCase):
         district = District(geometry=star)
 
         self.assertAlmostEqual((area/convex_hull), convex_hull_ratio(district), places=5)
+
+    def test_convex_hull_comparison_esri_shapefile(self):
+
+        shape_file = r"tests/tl_2014_55_sldl/tl_2014_55_sldl.shp"
+
+        driver = ogr.GetDriverByName('ESRI Shapefile')
+
+        data_source = driver.Open(shape_file, 0)
+
+        if data_source is None:
+            print ("Open failed.\n")
+            sys.exit(1)
+
+        layer = data_source.GetLayer()
+        layer.ResetReading()
+
+        compact = None
+        dispersed = None
+
+        for feature in layer:
+
+            # feature field one is the district ID
+            id = feature.GetField(1)
+
+            # compact
+            if id == "027":
+                # the feature's geometry
+                geom = feature.GetGeometryRef()
+                geometry = geom.Clone()
+                compact = District(id=27, geometry=geometry)
+
+            # dispersed
+            if id == "019":
+                # the feature's geometry
+                geom = feature.GetGeometryRef()
+                geometry = geom.Clone()
+                dispersed = District(id=19, geometry=geometry)
+
+        compact_score = convex_hull_ratio(compact)
+        dispersed_score = convex_hull_ratio(dispersed)
+
+        self.assertTrue(compact_score > dispersed_score)

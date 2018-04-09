@@ -17,7 +17,7 @@ def districts_in_range(district_plan, min_target, max_target):
     num_districts_in_range = 0
 
     if district_plan is None:
-    	raise TypeError
+        raise TypeError
 
     for district in district_plan:
         if isinstance(district, District) and district is not None:
@@ -44,7 +44,7 @@ def districts_in_percent_deviation(district_plan, percent_deviation):
     total_pop = 0
 
     if district_plan is None:
-    	raise TypeError
+        raise TypeError
     	
     for district in district_plan:
         if isinstance(district, District) and district is not None:
