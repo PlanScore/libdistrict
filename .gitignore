@@ -1,4 +1,5 @@
 dist
+build
 libdistrict.egg-info
 .idea
 __pycache__
