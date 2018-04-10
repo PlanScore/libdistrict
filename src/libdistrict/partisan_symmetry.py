@@ -1,4 +1,6 @@
+import statistics
 from libdistrict.district import District
+
 
 def efficiency_gap(district_plan, party_a, party_b):
     """
@@ -30,6 +32,32 @@ def efficiency_gap(district_plan, party_a, party_b):
             pass
 
     return (party_b_wasted - party_a_wasted) / total_votes
+
+
+
+def mean_median_diff(district_plan, party):
+    """
+    :param district_plan: an iterable of Districts
+    :param party: the key specifying which party to analyze
+    :return: median number votes - mean across all districts
+    """
+
+    is_district_plan(district_plan)
+
+    votes_per_district = []
+
+    # store all votes for party in a sequence
+    for district in district_plan:
+        party_votes = district.party_votes[party]
+        votes_per_district.append(party_votes)
+
+    # get the median votes for a district
+    party_votes_median = statistics.median(votes_per_district)
+
+    # get the mean for the district
+    party_votes_mean = statistics.mean(votes_per_district)
+
+    return party_votes_median - party_votes_mean
 
 def is_district(district):
     if not isinstance(district, District):
