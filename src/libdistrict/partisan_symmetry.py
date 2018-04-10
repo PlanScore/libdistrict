@@ -35,31 +35,33 @@ def efficiency_gap(district_plan, party_a, party_b):
 
 
 
-def mean_median_diff(district_plan, party):
+def mean_median_diff(district_plan, party_to_analyze, competing_party):
     """
     :param district_plan: an iterable of Districts
-    :param party: the key specifying which party to analyze
+    :param party_to_analyze: the key specifying which party to analyze
+    :param competing_party: the competing party
     :return: median - mean number of votes across all districts
-    a negative score means the analyzed party has an advantage
-    a positive score means the analyzed party has a disadvantage
+    a negative score means the analyzed party may have a disadvantage
+    a positive score means the analyzed party may have an advantage
     """
 
     is_district_plan(district_plan)
 
-    votes_per_district = []
+    vote_share_per_district = []
 
     # store all votes for party in a sequence
     for district in district_plan:
-        party_votes = district.party_votes[party]
-        votes_per_district.append(party_votes)
+        party_votes = district.party_votes[party_to_analyze]
+        total_votes = district.party_votes[party_to_analyze] + district.party_votes[competing_party]
+        vote_share_per_district.append(party_votes/total_votes)
 
-    # get the median votes for a district
-    party_votes_median = statistics.median(votes_per_district)
+    # get the median votes for all districts for the party
+    party_share_median = statistics.median(vote_share_per_district)
 
-    # get the mean for the district
-    party_votes_mean = statistics.mean(votes_per_district)
+    # get the mean for all districts for the party
+    party_share_mean = statistics.mean(vote_share_per_district)
 
-    return party_votes_median - party_votes_mean
+    return party_share_median - party_share_mean
 
 def is_district(district):
     if not isinstance(district, District):
