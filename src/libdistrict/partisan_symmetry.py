@@ -39,7 +39,9 @@ def mean_median_diff(district_plan, party):
     """
     :param district_plan: an iterable of Districts
     :param party: the key specifying which party to analyze
-    :return: median number votes - mean across all districts
+    :return: median - mean number of votes across all districts
+    a negative score means the analyzed party has an advantage
+    a positive score means the analyzed party has a disadvantage
     """
 
     is_district_plan(district_plan)
