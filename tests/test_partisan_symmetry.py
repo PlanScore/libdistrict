@@ -6,8 +6,8 @@ from libdistrict.partisan_symmetry import efficiency_gap, mean_median_diff
 class TestEfficiencyGap(unittest.TestCase):
 
     def setUp(self):
-        # District example from https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2457468
 
+        # District example from https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2457468
         district1 = District(id=1, party_votes={'partyA': 70, 'partyB': 30})
         district2 = District(id=2, party_votes={'partyA': 70, 'partyB': 30})
         district3 = District(id=3, party_votes={'partyA': 70, 'partyB': 30})
@@ -53,8 +53,8 @@ class TestEfficiencyGap(unittest.TestCase):
 class TestMeanMedianDifference(unittest.TestCase):
 
     def setUp(self):
-        # District example from https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2457468
 
+        # District example from https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2457468
         district1 = District(id=1, party_votes={'partyA': 70, 'partyB': 30})
         district2 = District(id=2, party_votes={'partyA': 70, 'partyB': 30})
         district3 = District(id=3, party_votes={'partyA': 70, 'partyB': 30})
@@ -69,6 +69,7 @@ class TestMeanMedianDifference(unittest.TestCase):
                                 district6, district7, district8, district9, district10}
 
 
+        # District example from PlanScore
         district11 = District(id=11, party_votes={'partyA': 6, 'partyB': 5})
         district12 = District(id=12, party_votes={'partyA': 6, 'partyB': 5})
         district13 = District(id=13, party_votes={'partyA': 4, 'partyB': 5})
@@ -93,12 +94,14 @@ class TestMeanMedianDifference(unittest.TestCase):
         self.assertAlmostEqual(0, mean_median_diff(self.district_plan_2, self.key_a, self.key_b), places=2)
 
     def test_mmd_none_district_plan(self):
+
         district_none = None
 
         with self.assertRaises(TypeError):
             mean_median_diff(district_none, self.key_a, self.key_b)
 
     def test_mmd_bad_district_plan(self):
+
         district1 = District(id=1, party_votes={'partyA': 70, 'partyB': 30})
         district2 = District(id=2, party_votes={'partyA': 70, 'partyB': 30})
         district_plan = {district1, "not a district", district2}
