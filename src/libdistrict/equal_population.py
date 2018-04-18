@@ -16,18 +16,13 @@ def districts_in_range(district_plan, min_target, max_target):
     """
     num_districts_in_range = 0
 
-    if district_plan is None:
-        raise TypeError
+    is_district_plan(district_plan)
 
     for district in district_plan:
-        if isinstance(district, District) and district is not None:
-            population = district.population
-            if isinstance(population, int):
-                if min_target <= population <= max_target:
-                    num_districts_in_range += 1
-
-        else:
-            raise TypeError
+        population = district.population
+        is_int_pop(district)
+        if min_target <= population <= max_target:
+            num_districts_in_range += 1
 
     return num_districts_in_range
 
@@ -43,16 +38,12 @@ def districts_in_percent_deviation(district_plan, percent_deviation):
     num_districts = 0
     total_pop = 0
 
-    if district_plan is None:
-        raise TypeError
+    is_district_plan(district_plan)
     	
     for district in district_plan:
-        if isinstance(district, District) and district is not None:
-            num_districts += 1
-            if isinstance(district.population, int):
-                total_pop += district.population
-        else:
-            raise TypeError
+        num_districts += 1
+        is_int_pop(district)
+        total_pop += district.population
 
     average_pop = total_pop / num_districts
     max_dev = percent_deviation / 100 * average_pop
@@ -62,3 +53,18 @@ def districts_in_percent_deviation(district_plan, percent_deviation):
             num_districts_in_percent_deviation += 1
     
     return num_districts_in_percent_deviation
+
+# Helper Methods for Equal Population Functions
+def is_district(district):
+    if not isinstance(district, District):
+        raise TypeError
+
+def is_district_plan(district_plan):
+    if district_plan is None:
+        raise TypeError
+    for district in district_plan:
+        is_district(district)
+
+def is_int_pop(district):
+    if not isinstance(district.population, int):
+        raise TypeError

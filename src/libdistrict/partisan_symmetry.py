@@ -87,7 +87,7 @@ def competitiveness(district_plan, party_a, party_b, range):
 
     return num_fair
 
-# Helper Methods for Partisan Symmetry Metrics
+# Helper Methods for Partisan Symmetry Functions
 def is_district(district):
     if not isinstance(district, District):
         raise TypeError

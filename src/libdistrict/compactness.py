@@ -90,7 +90,7 @@ def convex_hull_ratio(district):
     return area / convex_hull
 
 
-#Helper Methods for Compactness Functions
+# Helper Methods for Compactness Functions
 def is_district(district):
     if not isinstance(district, District):
         raise TypeError
