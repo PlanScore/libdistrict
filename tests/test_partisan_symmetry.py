@@ -137,7 +137,7 @@ class TestCompetitiveness(unittest.TestCase):
         # Range of 0.25 - 0.75, neither district is fair
         self.assertEqual(1, result, "Incorrect competitiveness value. Expected: %d, Actual: %d" % (1, result))
 
-    def test_competitiveness_both_fair(self):
+    def test_competitiveness_all_fair(self):
 
         range = 0.47
         result = competitiveness(self.district_plan, self.key_a, self.key_b, range)
