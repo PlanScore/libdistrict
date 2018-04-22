@@ -1,6 +1,6 @@
 import unittest
 from libdistrict.district import District
-from libdistrict.partisan_symmetry import efficiency_gap, mean_median_diff
+from libdistrict.partisan_symmetry import efficiency_gap, mean_median_diff, competitiveness
 
 
 class TestEfficiencyGap(unittest.TestCase):
@@ -36,11 +36,11 @@ class TestEfficiencyGap(unittest.TestCase):
         # partyB has a -20% efficiency gap
         self.assertEqual(-0.2, gap)
 
-    def test_EG_None_district_plan(self):
-        districtNone = None
+    def test_EG_none_district_plan(self):
+        district_plan_none = None
 
         with self.assertRaises(TypeError):
-            efficiency_gap(districtNone, self.key_a, self.key_b)
+            efficiency_gap(district_plan_none, self.key_a, self.key_b)
 
     def test_EG_bad_district_plan(self):
         district1 = District(id=1, party_votes={'partyA': 70, 'partyB': 30})
@@ -95,10 +95,10 @@ class TestMeanMedianDifference(unittest.TestCase):
 
     def test_mmd_none_district_plan(self):
 
-        district_none = None
+        district_plan_none = None
 
         with self.assertRaises(TypeError):
-            mean_median_diff(district_none, self.key_a, self.key_b)
+            mean_median_diff(district_plan_none, self.key_a, self.key_b)
 
     def test_mmd_bad_district_plan(self):
 
@@ -108,3 +108,58 @@ class TestMeanMedianDifference(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             mean_median_diff(district_plan, self.key_a, self.key_b)
+
+class TestCompetitiveness(unittest.TestCase):
+
+    def setUp(self):
+        
+        # District example from Public Mapping Project District Builder
+        district1 = District(id=1, party_votes={'partyA': 6, 'partyB': 150})
+        district2 = District(id=2, party_votes={'partyA': 42, 'partyB': 114})
+        self.district_plan = {district1, district2}
+        
+        self.key_a = 'partyA'
+        self.key_b = 'partyB'
+
+    def test_competitiveness_none_fair(self):
+
+        range = 0.05
+        result = competitiveness(self.district_plan, self.key_a, self.key_b, range)
+
+        # Range of 0.45 - 0.55, neither district is fair
+        self.assertEqual(0, result, "Incorrect competitiveness value. Expected: %d, Actual: %d" % (0, result))
+
+    def test_competitiveness_one_fair(self):
+
+        range = 0.25
+        result = competitiveness(self.district_plan, self.key_a, self.key_b, range)
+        
+        # Range of 0.25 - 0.75, neither district is fair
+        self.assertEqual(1, result, "Incorrect competitiveness value. Expected: %d, Actual: %d" % (1, result))
+
+    def test_competitiveness_all_fair(self):
+
+        range = 0.47
+        result = competitiveness(self.district_plan, self.key_a, self.key_b, range)
+        
+        # Range of 0.03 - 0.97, both districts are fair
+        self.assertEqual(2, result, "Incorrect competitiveness value. Expected: %d, Actual: %d" % (2, result))
+
+
+    def test_competitiveness_none_district_plan(self):
+
+        range = 0.05
+        district_plan_none = None
+
+        with self.assertRaises(TypeError):
+            competitiveness(district_plan_none, self.key_a, self.key_b, range)
+
+    def test_competitiveness_bad_district_plan(self):
+
+        range = 0.05
+        district1 = District(id=1, party_votes={'partyA': 6, 'partyB': 150})
+        district2 = District(id=2, party_votes={'partyA': 42, 'partyB': 114})
+        district_plan = {district1, "not a district", district2}
+
+        with self.assertRaises(TypeError):
+            competitiveness(district_plan, self.key_a, self.key_b, range)
