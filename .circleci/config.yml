@@ -7,6 +7,7 @@ jobs:
       - checkout
       - run:
           command: |
+            sudo apt-get update
             sudo apt-get install libgdal-dev libgdal1h
             sudo apt-get install python3-gdal
       - run:
