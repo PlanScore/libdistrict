@@ -1,4 +1,4 @@
-#Contributing to libdistrict
+# Contributing to libdistrict
 
 ## Install
  * [Python3](https://www.python.org/downloads/)
@@ -18,7 +18,7 @@
 ## Getting Others' Contributions
  * Locally: `git pull canonical master`
 
-## Run tests
+## Run Tests
  * Locally: `python3 setup.py test`
  
 ## Resources

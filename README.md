@@ -16,10 +16,10 @@ libdistrict is a Python 3 library. The library is not currently available on PyP
 ### Install libdistrict
 
  1. Clone the libdistrict git repository
-  * git clone https://github.com/PlanScore/libdistrict.git
+    1. `git clone https://github.com/PlanScore/libdistrict.git`
  1. Build Wheel
-  * `python3 setup.py bdist_wheel`
+    1. `python3 setup.py bdist_wheel`
  1. Install libdistrict
-  * `pip install <wheel_name>.whl
+    1. `pip install <wheel_name>.whl`
  1. Use the metrics in your project
 
