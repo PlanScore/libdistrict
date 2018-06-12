@@ -3,7 +3,7 @@
 libdistrict is a free open source metrics library created to help developers, researchers, and policy-makers evaluate district plans. This library is developed with input from [PlanScore](https://www.planscore.org) and [Azavea](https://www.azavea.com).
 
 ## Contributing
-Read the [contribution guidlines](CONTRIBUTIONS.md) for libdistrict. 
+Read the [contribution guidlines](CONTRIBUTING.md) for libdistrict. 
 
 ## Getting Started
 libdistrict is a Python 3 library. The library is not currently available on PyPI.
