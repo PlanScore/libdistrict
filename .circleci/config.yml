@@ -2,17 +2,15 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.4
+      - image: geodata/gdal:2.1.3
     steps:
       - checkout
       - run:
           command: |
-            sudo apt-get update
-            sudo apt-get install libgdal-dev libgdal1h
-            sudo apt-get install python3-gdal
+            sudo apt update
+            sudo apt install -y python3.4-venv python3-pip python3-setuptools
       - run:
           command: |
             python3 -m venv venv
-            . venv/bin/activate
-            pip install --global-option=build_ext --global-option="-I/usr/include/gdal" "GDAL <= `gdal-config --version`"
-            python setup.py test
+            source venv/bin/activate
+            python3 setup.py test
