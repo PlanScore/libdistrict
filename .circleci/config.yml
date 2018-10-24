@@ -12,5 +12,6 @@ jobs:
       - run:
           command: |
             python3 -m venv venv
-            source venv/bin/activate
+            . venv/bin/activate
+            pip install --global-option=build_ext --global-option="-I/usr/include/gdal" "GDAL <= `gdal-config --version`"
             python3 setup.py test
